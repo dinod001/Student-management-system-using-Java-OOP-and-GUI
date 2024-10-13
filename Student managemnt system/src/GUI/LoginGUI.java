@@ -136,6 +136,9 @@ public class LoginGUI extends javax.swing.JFrame {
         String password = "123";
         if (username.equals(txtusername.getText()) && password.equals(txtpassword.getText())) {
             JOptionPane.showMessageDialog(null, "Login succesfully");
+            ManageGUI manager=new ManageGUI();
+            this.dispose();
+            manager.setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
         else {
             JOptionPane.showMessageDialog(null, "Login unsuccesfull");
