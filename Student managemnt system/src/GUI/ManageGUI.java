@@ -6,7 +6,9 @@
 package GUI;
 import Data.Student;
 import Data.StudentDB;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,12 +17,21 @@ import javax.swing.JOptionPane;
 public class ManageGUI extends javax.swing.JFrame {
     Student student;
     StudentDB stDB=new StudentDB();
+    private DefaultTableModel tablemdodel;
+    ArrayList<Student> studentlist=new ArrayList<>();
 
     /**
      * Creates new form ManageGUI
      */
     public ManageGUI() {
         initComponents();
+        tablemdodel=new DefaultTableModel();
+        tablemdodel.addColumn("First Name");
+        tablemdodel.addColumn("Last Name");
+        tablemdodel.addColumn("Age");
+        tablemdodel.addColumn("Gender");
+        tablemdodel.addColumn("Grade");
+        table1.setModel(tablemdodel);
     }
 
     /**
@@ -216,6 +227,15 @@ public class ManageGUI extends javax.swing.JFrame {
 
     private void btnviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnviewActionPerformed
         // TODO add your handling code here:
+        studentlist=stDB.view();
+        for(Student student: studentlist){
+            String firstname=student.getFirstName();
+            String LastName=student.getLastName();
+            String gender=student.getGender();
+            int age=student.getAge();
+            int grade=student.getGrade();
+            tablemdodel.addRow(new Object[]{firstname,LastName,gender,age,grade});
+        }
     }//GEN-LAST:event_btnviewActionPerformed
 
     /**

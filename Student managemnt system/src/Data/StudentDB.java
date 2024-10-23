@@ -19,23 +19,23 @@ import java.util.logging.Logger;
  *
  * @author DSYS
  */
-public class StudentDB implements Istudent{
-    File file=new File("D:\\StudentDetails.txt");
+public class StudentDB implements Istudent {
+
     Student student;
+    File file = new File("D:\\StudentDetails.txt");
 
     @Override
     public boolean insert(Student student) {
         try {
-            FileWriter filewrite=new FileWriter(file,true);
-            filewrite.write(student.getFirstName()+":"+
-                    student.getLastName()+":"+
-                    student.getGender()+":"+
-                    student.getAge()+":"+
-                    student.getGrade()+"\n");
+            FileWriter filewrite = new FileWriter(file, true);
+            filewrite.write(student.getFirstName() + ":"
+                    + student.getLastName() + ":"
+                    + student.getGender() + ":"
+                    + student.getAge() + ":"
+                    + student.getGrade() + "\n");
             filewrite.close();
             return true;
-        } 
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
@@ -44,21 +44,20 @@ public class StudentDB implements Istudent{
     @Override
     public ArrayList<Student> view() {
         try {
-            Scanner sc=new Scanner(file);
-            ArrayList<Student> studentList=new ArrayList<>();
-            while(sc.hasNextLine()){
-                String line=sc.nextLine();
+            Scanner scan = new Scanner(file);
+            ArrayList<Student> studentlist=new ArrayList<>();
+            while(scan.hasNextLine()){
+                String line=scan.nextLine();
                 String arr[]=line.split(":");
-                String FirstName=arr[0];
-                String LastName=arr[1];
-                String Gender=arr[3];
-                Integer age=Integer.valueOf(arr[4]);
-                Integer grade=Integer.valueOf(arr[5]);
-                student=new Student(FirstName, LastName, Gender, age, grade);
-                studentList.add(student);
+                String firstname=arr[0];
+                String lastname=arr[1];
+                String Gender=arr[2];
+                int age=Integer.valueOf(arr[3]);
+                int grade=Integer.valueOf(arr[4]);
+                student=new Student(firstname, lastname, Gender, age, grade);
+                studentlist.add(student);
             }
-            return studentList;
-            
+            return studentlist;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,5 +68,5 @@ public class StudentDB implements Istudent{
     public void search() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
