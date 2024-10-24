@@ -119,6 +119,11 @@ public class ManageGUI extends javax.swing.JFrame {
 
         btnsearch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnsearch.setText("Seacrh");
+        btnsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,13 +153,12 @@ public class ManageGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtfirstname)
                             .addComponent(cmdgrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtlastname)
-                                .addComponent(txtage, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(rdomale)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(rdofemale))))))
+                            .addComponent(txtlastname)
+                            .addComponent(txtage, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rdomale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rdofemale)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -237,6 +241,20 @@ public class ManageGUI extends javax.swing.JFrame {
             tablemdodel.addRow(new Object[]{firstname,LastName,gender,age,grade});
         }
     }//GEN-LAST:event_btnviewActionPerformed
+
+    private void btnsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchActionPerformed
+       int grade=Integer.valueOf(cmdgrade.getSelectedItem().toString());
+        studentlist=stDB.search(grade);
+        tablemdodel.setRowCount(0);
+        for(Student student: studentlist){
+            String firstname=student.getFirstName();
+            String LastName=student.getLastName();
+            String gender=student.getGender();
+            int age=student.getAge();
+            int graden=student.getGrade();
+            tablemdodel.addRow(new Object[]{firstname,LastName,gender,age,graden});
+        }
+    }//GEN-LAST:event_btnsearchActionPerformed
 
     /**
      * @param args the command line arguments

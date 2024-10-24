@@ -45,16 +45,16 @@ public class StudentDB implements Istudent {
     public ArrayList<Student> view() {
         try {
             Scanner scan = new Scanner(file);
-            ArrayList<Student> studentlist=new ArrayList<>();
-            while(scan.hasNextLine()){
-                String line=scan.nextLine();
-                String arr[]=line.split(":");
-                String firstname=arr[0];
-                String lastname=arr[1];
-                String Gender=arr[2];
-                int age=Integer.valueOf(arr[3]);
-                int grade=Integer.valueOf(arr[4]);
-                student=new Student(firstname, lastname, Gender, age, grade);
+            ArrayList<Student> studentlist = new ArrayList<>();
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                String arr[] = line.split(":");
+                String firstname = arr[0];
+                String lastname = arr[1];
+                String Gender = arr[2];
+                int age = Integer.valueOf(arr[3]);
+                int grade = Integer.valueOf(arr[4]);
+                student = new Student(firstname, lastname, Gender, age, grade);
                 studentlist.add(student);
             }
             return studentlist;
@@ -65,8 +65,21 @@ public class StudentDB implements Istudent {
     }
 
     @Override
-    public void search() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Student> search(int grade) {
+        ArrayList<Student> studentlist = view();
+        ArrayList<Student> categoryLsit = new ArrayList<>();
+        for (int i = 0; i < studentlist.size(); i++) {
+            Student student = studentlist.get(i);
+            if (student.getGrade() == grade) {
+                String firstname = student.getFirstName();
+                String lastname = student.getLastName();
+                String Gender = student.getGender();
+                int age = student.getAge();
+                int graden = student.getGrade();
+                student = new Student(firstname, lastname, Gender, age, graden);
+                categoryLsit.add(student);
+            }
+        }
+        return categoryLsit;
     }
-
 }
