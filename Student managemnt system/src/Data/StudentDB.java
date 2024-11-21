@@ -30,8 +30,8 @@ public class StudentDB implements Istudent {
             FileWriter filewrite = new FileWriter(file, true);
             filewrite.write(student.getFirstName() + ":"
                     + student.getLastName() + ":"
-                    + student.getGender() + ":"
                     + student.getAge() + ":"
+                    + student.getGender() + ":"
                     + student.getGrade() + "\n");
             filewrite.close();
             return true;
@@ -51,8 +51,8 @@ public class StudentDB implements Istudent {
                 String arr[] = line.split(":");
                 String firstname = arr[0];
                 String lastname = arr[1];
-                String Gender = arr[2];
-                int age = Integer.valueOf(arr[3]);
+                int age = Integer.valueOf(arr[2]);
+                String Gender = arr[3];
                 int grade = Integer.valueOf(arr[4]);
                 student = new Student(firstname, lastname, Gender, age, grade);
                 studentlist.add(student);
@@ -82,4 +82,63 @@ public class StudentDB implements Istudent {
         }
         return categoryLsit;
     }
+
+    @Override
+    public boolean delete(String firstname) {
+        ArrayList<Student> studentList=view();
+        for (int i = 0; i < studentList.size(); i++) {
+            Student student = studentList.get(i);
+            if (student.getFirstName().equals(firstname)) {
+                studentList.remove(i);
+                break;
+            }
+        }
+        
+        try {
+            FileWriter filewrite = new FileWriter(file);
+            for(Student student:studentList){
+                filewrite.write(student.getFirstName() + ":"
+                    + student.getLastName() + ":"
+                    + student.getAge() + ":"
+                    + student.getGender() + ":"
+                    + student.getGrade() + "\n");
+            }
+            filewrite.close();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return false;
+    }
+
+    @Override
+    public boolean update(Student students) {
+        ArrayList<Student> studentList=view();
+        for (int i = 0; i < studentList.size(); i++) {
+            Student student = studentList.get(i);
+            if (student.getFirstName().equals(students.getFirstName())) {
+                studentList.set(i,students);
+                break;
+            }
+        }
+        try {
+            FileWriter filewrite = new FileWriter(file);
+            for(Student student:studentList){
+                filewrite.write(student.getFirstName() + ":"
+                    + student.getLastName() + ":"
+                    + student.getAge() + ":"
+                    + student.getGender() + ":"
+                    + student.getGrade() + "\n");
+            }
+            filewrite.close();
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return false;
+         
+        
+    }
+
+    
 }
